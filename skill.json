@@ -1,0 +1,80 @@
+{
+  "name": "pet-center-skill",
+  "version": "1.0.0",
+  "description": "PET中心智能助手 - 检查预约咨询、准备指导、流程说明",
+  "author": "核医学科",
+  "keywords": ["PET", "PET-CT", "PET-MR", "FDG", "FAPI", "PSMA", "核医学", "显像剂"],
+  "tools": [
+    {
+      "name": "get_prep_guide",
+      "description": "获取指定显像剂的检查前准备指南",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tracer": {
+            "type": "string",
+            "description": "显像剂名称，如FDG、FAPI、PSMA、AV45、AV1451、FES、DOPA、奥曲肽、FCIT",
+            "enum": ["FDG", "FAPI", "PSMA", "AV45", "AV1451", "FES", "DOPA", "奥曲肽", "FCIT"]
+          }
+        },
+        "required": ["tracer"]
+      }
+    },
+    {
+      "name": "get_tracer_info",
+      "description": "获取指定显像剂的详细信息（适应症、剂量、时间）",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tracer": {
+            "type": "string",
+            "description": "显像剂名称",
+            "enum": ["FDG", "FAPI", "PSMA", "AV45", "AV1451", "FES", "DOPA", "奥曲肽", "FCIT"]
+          }
+        },
+        "required": ["tracer"]
+      }
+    },
+    {
+      "name": "get_center_info",
+      "description": "获取PET中心基本信息（位置、设备、工作时间、联系方式）",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_faq",
+      "description": "获取常见问题解答",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "问题类别",
+            "enum": ["general", "preparation", "safety", "report", "appointment"]
+          }
+        }
+      }
+    },
+    {
+      "name": "compare_tracers",
+      "description": "对比两种显像剂的差异",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tracer1": {
+            "type": "string",
+            "description": "第一种显像剂"
+          },
+          "tracer2": {
+            "type": "string",
+            "description": "第二种显像剂"
+          }
+        },
+        "required": ["tracer1", "tracer2"]
+      }
+    }
+  ],
+  "systemPrompt": "你是PET中心的智能咨询助手。你的职责是为患者和临床医生提供准确、清晰的PET检查相关信息。\n\n核心原则：\n1. 专业但易懂 — 用通俗语言解释医学术语\n2. 准确不编造 — 所有剂量、时间、禁忌症均来自标准操作规程\n3. 安全优先 — 涉及辐射安全和禁忌症时务必严谨\n4. 超出范围时坦诚告知 — 不替代医生诊疗建议\n\n当用户询问具体病例或治疗方案时，请建议其咨询主治医生或核医学科医生。"
+}
